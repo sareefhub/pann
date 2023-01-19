@@ -13,7 +13,7 @@ export interface AuthData {
 export async function initSsoCert(){
   const result = await axios.get(appConfig.ssoIssuer)  
   public_key = `-----BEGIN PUBLIC KEY-----\n${result.data.public_key}\n-----END PUBLIC KEY-----\n`
-  //console.log(public_key)  
+  console.log(public_key)  
 }
 
 export async function verifyJwt(token: string){  
