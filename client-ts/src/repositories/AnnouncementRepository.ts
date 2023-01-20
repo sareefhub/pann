@@ -16,7 +16,13 @@ export class announcementRepo implements IRepository<Announcement> {
     }
     async getAll(): Promise<Announcement[] | null> {
         return [
-            { id: 1, topic: '240-124 Midterm 1/2566',description: 'คะแนนกลางภาควิชา Web Dev',remarkIfPositive:'1',remarkIfNegative:'0',pubDateTime:new Date('2022-09-08 10:00:00'), userCode: 'suthon.s'}
+            { id: 1, 
+                topic: '240-124 Midterm 1/2566',
+                description: 'คะแนนกลางภาควิชา Web Dev',
+                remarkIfPositive:'1',
+                remarkIfNegative:'0',
+                pubDateTime:new Date('2022-09-08 10:00:00'), 
+                userCode: 'suthon.s'}
         ]
     }
 }
