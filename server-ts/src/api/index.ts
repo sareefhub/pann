@@ -1,7 +1,7 @@
 import Router from 'koa-router'
 import announcement from './announcement'
 import userResult from './user_result'
-import { authMiddleware } from 'auth'
+import { authMiddleware } from '../auth'
 
 const apiRouter = new Router()
 
