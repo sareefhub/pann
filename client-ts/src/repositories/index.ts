@@ -1,7 +1,9 @@
-import { announcementRepo } from "./AnnouncementRepository";
+import { AnnouncementRepository } from "./AnnouncementRepository"
+import { UserResultRepository } from "./UserResultRepository"
 
-const Repo = {
-    announcements: new announcementRepo
+const repositories = {
+  announcements: new AnnouncementRepository(),
+  userResults: new UserResultRepository()
 }
 
-export default Repo
+export default repositories
