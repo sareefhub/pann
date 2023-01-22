@@ -1,7 +1,7 @@
 import Router from "koa-router";
 import db from "../db";
 import { nestObject } from "./utils";
-import { AuthData } from "auth"
+import { AuthData } from "../auth"
 const router = new Router()
 
 const makeQuery = () => db('userResult').select(

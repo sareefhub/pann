@@ -2,7 +2,7 @@ import Koa from 'koa'
 import Router from 'koa-router'
 import { pick } from 'lodash'
 import db from '../db'
-import { AuthData } from 'auth'
+import { AuthData } from '../auth'
 const router = new Router()
 
 const makeQuery = () => db('announcement').select('*')
