@@ -1,28 +1,54 @@
-import Announcement from "../models/Announcement";
+import { ax } from '../config';
 import { IRepository } from "./IRepository";
+import Announcement from "../models/Announcement";
+import config from "../config";
+import UserResult from '../models/UserResult';
 
-export class announcementRepo implements IRepository<Announcement> {
-    get(id: string | number): Promise<Announcement | null> {
-        throw new Error("Method not implemented.");
-    }
-    create(entity: Partial<Announcement>): Promise<Announcement | null> {
-        throw new Error("Method not implemented.");
-    }
-    update(entity: Partial<Announcement>): Promise<Announcement | null> {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: string | number): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    async getAll(): Promise<Announcement[] | null> {
-        return [
-            { id: 1, 
-                topic: '240-124 Midterm 1/2566',
-                description: 'คะแนนกลางภาควิชา Web Dev',
-                remarkIfPositive:'1',
-                remarkIfNegative:'0',
-                pubDateTime:new Date('2022-09-08 10:00:00'), 
-                userCode: 'suthon.s'}
-        ]
-    }
+export interface AnnouncementFilter {
+  keyword?: string
+}
+
+export class AnnouncementRepository implements IRepository<Announcement> {
+  urlPrefix = config.remoteRepositoryUrlPrefix
+  
+  async getAll(filter: AnnouncementFilter): Promise<Announcement[] | null> {
+    const params = {...filter}
+    const resp = await ax.get<Announcement[]>(`${this.urlPrefix}/announcement`, { params })
+
+    return resp.data
+  }
+
+  async get(id: string|number): Promise<Announcement | null> {
+    const resp = await ax.get<Announcement>(`${this.urlPrefix}/announcement/${id}`)
+
+    return resp.data
+  }
+
+  async create(entity: Partial<Announcement>): Promise<Announcement | null> {
+    const resp = await ax.post<Announcement>(`${this.urlPrefix}/announcement`, entity)
+
+    return resp.data
+  }
+
+  async update(entity: Partial<Announcement>): Promise<Announcement | null> {
+    const resp = await ax.put<Announcement>(`${this.urlPrefix}/announcement/${entity.id}`, entity)
+
+    return resp.data
+  }
+
+  async delete(id: string|number): Promise<void> {
+    await ax.delete<void>(`${this.urlPrefix}/announcement/${id}`)
+  }
+
+  async getUserResult(id: string|number): Promise<UserResult[] | null> {
+    const resp = await ax.get<UserResult[]>(`${this.urlPrefix}/announcement/${id}/results`)
+
+    return resp.data
+  }
+
+  async upsertUserResult(id: string|number, entity: Partial<UserResult>[]): Promise<UserResult[] | null> {
+    const resp = await ax.post<UserResult[]>(`${this.urlPrefix}/announcement/${id}/results`, entity)
+
+    return resp.data
+  }
 }
