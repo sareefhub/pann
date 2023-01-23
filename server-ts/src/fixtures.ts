@@ -1,4 +1,4 @@
-import db from "./db"
+import db from "./db";
 
 async function loadFixtures(clearData = false){
   if(clearData){
