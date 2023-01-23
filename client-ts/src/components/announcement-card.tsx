@@ -49,7 +49,7 @@ function AnnouncementCard(props: Prop) {
 
   const onDelete = async () => {
     await Repo.announcements.delete(announcement.id)
-    
+    setConfirmPopup(false)
     props.callbackFetchFn()
   }
 
@@ -151,22 +151,21 @@ function AnnouncementCard(props: Prop) {
       </Card>
       
       <Dialog className="confirmPopup" PaperProps={{sx: { minWidth: '30%'} }} open={confirmPopup} onClose={() => setConfirmPopup(false)}>
-              <DialogTitle><b>Delete The Announcement ?</b></DialogTitle>
+              <DialogTitle><b>คุณแน่ใจใช่หรือไม่ ?</b></DialogTitle>
               <DialogContent>
                 <DialogContentText>
-                    Are you sure to delete the announcement ?.
-                    If you want to delete announcement please click "Submit" 
+                    ถ้าคุณแน่ใจว่าจะลบประกาศ โปรดกด "ยืนยัน"
                 </DialogContentText>
                 <div id="trashAnnouncement">
                     <img 
-                    src="https://cdn-icons-png.flaticon.com/512/578/578104.png" 
+                    src="https://media.boonthavorn.com/media/catalog/product/_/p/_product_image_1041847_1041847_1_1621.jpg?format=pjpg&width=1200" 
                     height='60%' width='20%'
                     ></img>
                 </div>
               </DialogContent>
               <DialogActions>
-                <Button sx={{ m: 2, float: 'right' }} variant="contained" autoFocus={true} onClick={onDelete}>Submit</Button>
-                <Button onClick={() => setConfirmPopup(false)}>Cancel</Button>
+                <Button sx={{ m: 2, float: 'right' }} variant="contained" autoFocus={true} onClick={onDelete}>ยืนยัน</Button>
+                <Button onClick={() => setConfirmPopup(false)}>ยกเลิก</Button>
               </DialogActions>
             </Dialog>
 
