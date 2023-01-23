@@ -24,7 +24,7 @@ function Login() {
         })
       }, 1000)
     }
-  }, [auth, userInfo.ready])
+  }, [action, auth, userInfo.ready])
 
   switch (auth.activeNavigator) {
     case "signinSilent":
@@ -58,9 +58,9 @@ function Login() {
   }
 
   return (
-    <div className='logo-container'>
-      <img src={require("../images/logoPSU.jpg")} alt="Logo" width={80} height={100} /> 
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 600 }}>
+    <div className='login-container'>
+      <img src={require("../images/logoPSU.png")} alt="Logo" width={150} height={100} /> 
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 500 }}>
       <Button variant='contained' sx={{ fontSize: 'large' }} onClick={() => void auth.signinRedirect()}>
         <LoginIcon sx={{ mr: 2 }} />
         Log in
