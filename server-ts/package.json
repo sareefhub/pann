@@ -28,6 +28,7 @@
     "axios": "^1.2.3",
     "jsonwebtoken": "^9.0.0",
     "knex": "^2.4.0",
+    "knex-schema": "^2.2.1",
     "knex-stringcase": "^1.4.6",
     "koa": "^2.14.1",
     "koa-body": "^6.0.1",
