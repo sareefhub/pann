@@ -5,6 +5,7 @@ import { Login as LoginIcon } from '@mui/icons-material';
 import { useAuth } from "react-oidc-context";
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAppCtx } from '../AppProvider';
+import './BG.css'
 
 function Login() {
 
