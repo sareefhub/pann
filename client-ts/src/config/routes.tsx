@@ -1,5 +1,5 @@
+import { useEffect } from 'react';
 import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
-
 import Login from '../pages/login';
 import UserResultList from '../pages/user-result-list';
 import AnnouncementList from '../pages/announcement-list';
@@ -14,14 +14,18 @@ type Props = {
 const ProtectedRoute = ({staffOnly, children }: Props) => {
   const {userInfo, action} = useAppCtx();
   const location = useLocation()
-  const staffDenied = staffOnly && !action.isStaff()
-  if (!userInfo.ready || staffDenied) {    
-    if(staffDenied){
-      action.signOut()
-    }
+  const redirectToLogin = () => {
+    action.signOut()
+
     console.log('backTo = ', location.pathname)
     return  <Navigate to="/login" replace state={{backTo: location.pathname}}/>;
   }
+
+  useEffect(() => {
+    if (!userInfo.ready || (staffOnly && !action.isStaff())) {
+        redirectToLogin()
+    }
+  }, [userInfo.ready, staffOnly])
 
   return children;
 }
@@ -32,7 +36,7 @@ const AppRoutes = () => {
       <Route index element={<Login />} />
       <Route path="login" element={<Login/>} />
       <Route path="home" element={<ProtectedRoute><UserResultList/></ProtectedRoute>} />
-      <Route path="announcement" element={<ProtectedRoute><AnnouncementList/></ProtectedRoute>} />
+      <Route path='announcement' element={<ProtectedRoute staffOnly={true}><AnnouncementList/></ProtectedRoute>}/>
     </Routes>
   );
 };
