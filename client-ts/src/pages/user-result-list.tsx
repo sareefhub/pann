@@ -28,7 +28,6 @@ function UserResultList() {
         setUserResultList([])
       }
       setUserResultList(result)
-      console.log('In filter',userResultList)
     }
   }
 
@@ -44,7 +43,6 @@ function UserResultList() {
     fetchUserResultList()
   }, [selectFilter, searchFilter])
 
-  console.log('Before go in card',userResultList)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <PannAppBar></PannAppBar>

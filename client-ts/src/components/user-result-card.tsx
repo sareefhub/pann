@@ -48,7 +48,6 @@ function UserResultCard(props: Prop) {
     }
   }
 
-  console.log(userResult.announcement?.topic)
   return (
     <Box>
       <Card sx={{ maxWidth: 500, height: 250 }}>
