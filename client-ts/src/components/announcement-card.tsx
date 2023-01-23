@@ -8,6 +8,7 @@ import Announcement from "../models/Announcement";
 import AnnouncementForm from "./announcement-form";
 import Repo from '../repositories'
 import UserResult from "../models/UserResult";
+import './user-card.css'
 
 interface Prop {
   announcement: Announcement
@@ -122,8 +123,16 @@ function AnnouncementCard(props: Prop) {
   }, [announcement.id])
 
   return (
-    <Box>
-      <Card sx={{ maxWidth: 500, height: 240 }}>
+    <Box m={2}>
+      <Card className="card-edge-hover" sx={{
+          maxWidth: 750,
+          height: 275,
+          transition: 'all 0.1s ease-in-out',
+          '&:hover': {
+              transform: 'scale(1.1)',
+              boxShadow: '0px 0px 20px 0px #50abe7'
+          }
+      }}>
         <CardHeader
           sx={{ height: '30%' }}
           title={announcement?.topic}
