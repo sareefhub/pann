@@ -58,12 +58,15 @@ function Login() {
   }
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 1200 }}>
+    <div className='logo-container'>
+      <img src={require("../images/logoPSU.jpg")} alt="Logo" width={80} height={100} /> 
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 600 }}>
       <Button variant='contained' sx={{ fontSize: 'large' }} onClick={() => void auth.signinRedirect()}>
-        <LoginIcon sx={{ mr: 1 }} />
+        <LoginIcon sx={{ mr: 2 }} />
         Log in
       </Button>
     </Box>
+    </div>
   );
 };
 

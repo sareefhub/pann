@@ -59,8 +59,8 @@ function PannAppBar() {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          PSU Announcement
+        <Typography variant="h6" component="div" sx={{ flexGrow: 2 }}>
+          <p>PSU Announcement</p>
         </Typography>
         <Typography>
           {userInfo.displayName}

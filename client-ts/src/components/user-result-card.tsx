@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import { PushPin, Close, CheckCircle } from '@mui/icons-material/';
 import UserResult, { ResultType } from "../models/UserResult";
 import Repo from "../repositories";
+import "./user-card.css"
 
 interface Prop {
   userResult: UserResult;
@@ -49,8 +50,16 @@ function UserResultCard(props: Prop) {
   }
 
   return (
-    <Box>
-      <Card sx={{ maxWidth: 500, height: 250 }}>
+    <Box m={2}>
+      <Card className="card-edge-hover" sx={{
+          maxWidth: 750,
+          height: 275,
+          transition: 'all 0.1s ease-in-out',
+          '&:hover': {
+              transform: 'scale(1.1)',
+              boxShadow: '0px 0px 20px 0px #50abe7'
+          }
+      }}>
         <CardHeader
           sx={{ height: '30%' }}
           title={userResult.announcement?.topic}
