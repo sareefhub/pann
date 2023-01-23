@@ -1,15 +1,16 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Grid, MenuItem, Select, SelectChangeEvent, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import PannAppBar from '../components/pann-app-bar';
 import UserResultCard from '../components/user-result-card';
 import UserResult from '../models/UserResult';
-import Repo from '../repositories'
+import Repo from '../repositories';
+import PannAppBar from '../components/pann-app-bar';
 
 function UserResultList() {
   const [userResultList, setUserResultList] = useState<UserResult[]>([])
   const [selectFilter, setSelectFilter] = useState('');
   const [searchFilter, setSearchFilter] = useState('');
+
   const onUpdateUserResult = (userResult: UserResult) => {
     // update userResult in userResultList
     setUserResultList(prevUserResultList => prevUserResultList.map(item => item.id === userResult.id ? userResult : item))}

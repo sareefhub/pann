@@ -19,7 +19,7 @@ function PannAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{background: '#000080'}}>
       <Drawer
         anchor='left'
         open={anchorNav}
@@ -97,4 +97,4 @@ function PannAppBar() {
   )
 }
 
-export default PannAppBar; 
+export default PannAppBar;
