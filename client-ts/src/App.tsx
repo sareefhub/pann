@@ -8,7 +8,7 @@ function App() {
   return (
     <AuthProvider {...oidcConfig}>
       <AppProvider>
-        <AppRoutes />
+        <AppRoutes/>
       </AppProvider>      
     </AuthProvider>
   )
