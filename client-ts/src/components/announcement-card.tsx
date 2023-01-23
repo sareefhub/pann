@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, CardActionArea, CardActions, CardContent, CardHeader, Dialog, DialogTitle, Grid, IconButton, Tab, Table, TableBody, TableCell, TableHead, TableRow, Tabs, Typography } from "@mui/material";
+import { Card, CardActionArea, CardActions, CardContent, CardHeader, Dialog, DialogTitle,Grid, IconButton, Tabs, Tab, Table, Typography, Button, TableHead, TableRow, TableCell, TableBody, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import { Box } from "@mui/system";
 import { Close, Delete, Edit, Upload } from "@mui/icons-material";
 import { read, utils } from 'xlsx';
@@ -19,7 +19,8 @@ const USER_RESULT_BINDABLE = ['userCode', 'result', 'resultType', 'remark']
 function AnnouncementCard(props: Prop) {
   const [announcement, setAnnouncement] = useState<Announcement>(props.announcement);
   const [userResultList, setUserResultList] = useState<Partial<UserResult>[]>([]);
-  const [popup, setPopup] = useState(false);
+  const [formPopup, setFormPopup] = useState(false)
+  const [confirmPopup, setConfirmPopup] = useState(false)
   const [tabIndex, setTabIndex] = useState(0);
   const [isImporting, setIsImporting] = useState(false);
   const xlsxHeading = [
@@ -43,11 +44,12 @@ function AnnouncementCard(props: Prop) {
     if (result) {
       setAnnouncement(result)
     }
-    setPopup(false)
+    setFormPopup(false)
   }
 
   const onDelete = async () => {
     await Repo.announcements.delete(announcement.id)
+    setConfirmPopup(false)
     props.callbackFetchFn()
   }
 
@@ -127,12 +129,12 @@ function AnnouncementCard(props: Prop) {
           title={announcement?.topic}
           subheader={new Date(announcement?.pubDateTime?.toString()).toLocaleString('en-GB')}
           action={
-            <IconButton sx={{ '&:hover': { color: 'red' } }} onClick={onDelete}>
+            <IconButton sx={{ '&:hover': { color: 'red'} }} onClick={() => setConfirmPopup(true)}>
               <Delete />
             </IconButton>
           }
         />
-        <CardActionArea sx={{ height: '56%' }} onClick={() => setPopup(true)}>
+        <CardActionArea sx={{ height: '56%' }} onClick={() => setFormPopup(true)}>
           <CardContent sx={{ height: '40%' }}>
             <Grid container spacing={2} columns={5}>
               <Grid item xs={3}>
@@ -148,13 +150,33 @@ function AnnouncementCard(props: Prop) {
         </CardActionArea>
       </Card>
 
-      <Dialog PaperProps={{ sx: { minWidth: "50%", height: "55%" } }} open={popup} onClose={() => setPopup(false)}>
+      <Dialog className="confirmPopup" PaperProps={{sx: { minWidth: '30%'} }} open={confirmPopup} onClose={() => setConfirmPopup(false)}>
+              <DialogTitle><b>Delete The Announcement ?</b></DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                    Are you sure to delete the announcement ?.
+                    If you want to delete announcement please click "Submit" 
+                </DialogContentText>
+                <div id="trashAnnouncement">
+                    <img 
+                    src="https://cdn-icons-png.flaticon.com/512/578/578104.png" 
+                    height='60%' width='20%'
+                    ></img>
+                </div>
+              </DialogContent>
+              <DialogActions>
+                <Button sx={{ m: 2, float: 'right' }} variant="contained" autoFocus={true} onClick={onDelete}>Submit</Button>
+                <Button onClick={() => setConfirmPopup(false)}>Cancel</Button>
+              </DialogActions>
+            </Dialog>
+      
+      <Dialog PaperProps={{sx: { minWidth: '50%', height: '70%'} }} open={formPopup} onClose={() => setFormPopup(false)}>
         <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Tabs value={tabIndex} onChange={(event: React.SyntheticEvent, newValue: number) => setTabIndex(newValue)} aria-label="basic tabs example">
             <Tab label="General" />
             <Tab label="Results List" />
           </Tabs>
-          <IconButton onClick={() => setPopup(false)}>
+          <IconButton onClick={() => setFormPopup(false)}>
             <Close />
           </IconButton>
         </DialogTitle>
