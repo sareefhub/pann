@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from 'react-oidc-context';
 
 function createCtx<A extends {} | null>() {
@@ -43,8 +43,21 @@ function AppProvider({children}: AppProviderProps){
   const auth = useAuth()
   const [_userInfo, _setUserInfo] = useState<UserInfo>(initialUserInfo)
 
+  useEffect(() => {
+    const json = sessionStorage.getItem('userInfo') as string
+    const data = JSON.parse(json)
+    if(data){
+        _setUserInfo({
+            ready: data.ready,
+            username: data.username,
+            displayName: data.displayName,
+            staff: data.staff
+    })}
+},[])
+
   function setUserInfo(userInfo: UserInfo){
-    _setUserInfo({...userInfo, ready: true})
+    _setUserInfo({...userInfo, ready: true,staff:isStaff()})
+    sessionStorage.setItem('userInfo',JSON.stringify(_userInfo))
   }
 
   function isStaff(){
@@ -55,6 +68,7 @@ function AppProvider({children}: AppProviderProps){
   }
   
   function signOut(){
+    sessionStorage.removeItem('userInfo')
     auth.signoutRedirect()    
     _setUserInfo({ready: false})
   }
